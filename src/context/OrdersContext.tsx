@@ -1,14 +1,14 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
-import type { GroupOrder, IndividualOrder } from '@src/types';
+import type { GroupOrder, IndividualOrder } from "@src/types";
 import {
   INITIAL_ORDERS,
   RESTAURANTS,
   getMenuItemById,
   getToppingsByMenuItemId,
   getExtrasByMenuItemId,
-} from '@src/data/mockData';
-import { useUser } from '@src/context/UserContext';
+} from "@src/data/mockData";
+import { useUser } from "@src/context/UserContext";
 
 interface OrdersContextValue {
   orders: GroupOrder[];
@@ -23,7 +23,7 @@ interface OrdersContextValue {
 
 const OrdersContext = createContext<OrdersContextValue>({
   orders: [],
-  createOrder: () => '',
+  createOrder: () => "",
   joinOrder: () => {},
 });
 
@@ -32,15 +32,15 @@ export const OrdersProvider = ({ children }: { children: React.ReactNode }) => {
   const { currentUser } = useUser();
 
   const createOrder = (restaurantId: string): string => {
-    const restaurant = RESTAURANTS.find(r => r.id === restaurantId);
+    const restaurant = RESTAURANTS.find(({ id }) => id === restaurantId);
 
-    if (!restaurant || !currentUser) return '';
+    if (!restaurant || !currentUser) return "";
 
     const newOrder: GroupOrder = {
       id: String(Date.now()),
       restaurantId,
       restaurantName: restaurant.name,
-      status: 'open',
+      status: "open",
       date: new Date(Date.now() + 60 * 60 * 1000).toISOString(),
       createdById: currentUser.id,
       creatorName: currentUser.nickname,
@@ -49,7 +49,7 @@ export const OrdersProvider = ({ children }: { children: React.ReactNode }) => {
       individualOrders: [],
     };
 
-    setOrders(previous => [newOrder, ...previous]);
+    setOrders((previous) => [newOrder, ...previous]);
 
     return newOrder.id;
   };
@@ -69,8 +69,12 @@ export const OrdersProvider = ({ children }: { children: React.ReactNode }) => {
     const allToppings = getToppingsByMenuItemId(menuItemId);
     const allExtras = getExtrasByMenuItemId(menuItemId);
 
-    const selectedToppings = allToppings.filter(t => selectedToppingIds.includes(t.id));
-    const selectedExtras = allExtras.filter(e => selectedExtraIds.includes(e.id));
+    const selectedToppings = allToppings.filter((topping) =>
+      selectedToppingIds.includes(topping.id),
+    );
+    const selectedExtras = allExtras.filter((extra) =>
+      selectedExtraIds.includes(extra.id),
+    );
 
     const total =
       menuItem.price +
@@ -85,12 +89,12 @@ export const OrdersProvider = ({ children }: { children: React.ReactNode }) => {
       menuItemName: menuItem.name,
       total,
       paid: false,
-      selectedToppingNames: selectedToppings.map(t => t.name),
-      selectedExtraNames: selectedExtras.map(e => e.name),
+      selectedToppingNames: selectedToppings.map(({ name }) => name),
+      selectedExtraNames: selectedExtras.map(({ name }) => name),
     };
 
-    setOrders(previous =>
-      previous.map(order => {
+    setOrders((previous) =>
+      previous.map((order) => {
         if (order.id !== groupOrderId) return order;
 
         return {

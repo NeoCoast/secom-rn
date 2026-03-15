@@ -3,10 +3,12 @@ export interface User {
   firstName: string;
   lastName: string;
   nickname: string;
-  role: 'standard' | 'admin';
+  role: "standard" | "admin";
 }
 
-export type OrderStatus = 'open' | 'closed' | 'ordered' | 'delivered';
+export type OrderStatus = "open" | "closed" | "ordered" | "delivered";
+
+export const ACTIVE_STATUSES: OrderStatus[] = ["open", "closed", "ordered"];
 
 export interface Restaurant {
   id: string;

@@ -1,12 +1,12 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Ionicons } from '@expo/vector-icons';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { Ionicons } from "@expo/vector-icons";
 
-import HomeScreen from '@src/screens/HomeScreen';
-import OrderDetailScreen from '@src/screens/OrderDetailScreen';
-import CreateOrderScreen from '@src/screens/CreateOrderScreen';
-import { colors } from '@src/theme';
-import type { TabParamList, HomeStackParamList } from '@src/navigation/types';
+import HomeScreen from "@src/screens/HomeScreen/HomeScreen";
+import OrderDetailScreen from "@src/screens/OrderDetailScreen/OrderDetailScreen";
+import CreateOrderScreen from "@src/screens/CreateOrderScreen/CreateOrderScreen";
+import { colors } from "@src/theme";
+import type { TabParamList, HomeStackParamList } from "@src/navigation/types";
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 const Tab = createBottomTabNavigator<TabParamList>();
@@ -34,7 +34,7 @@ export const TabNavigator = () => (
       tabBarInactiveTintColor: colors.textMuted,
       tabBarLabelStyle: {
         fontSize: 11,
-        fontWeight: '600',
+        fontWeight: "600",
         marginTop: 2,
       },
     }}
@@ -43,7 +43,7 @@ export const TabNavigator = () => (
       name="HomeTab"
       component={HomeStackNavigator}
       options={{
-        title: 'Pedidos',
+        title: "Pedidos",
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="receipt-outline" size={size} color={color} />
         ),
@@ -53,7 +53,7 @@ export const TabNavigator = () => (
       name="CreateTab"
       component={CreateOrderScreen}
       options={{
-        title: 'Nuevo',
+        title: "Nuevo",
         tabBarIcon: ({ color, size }) => (
           <Ionicons name="add-circle-outline" size={size} color={color} />
         ),
