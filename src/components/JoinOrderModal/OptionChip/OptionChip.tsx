@@ -27,8 +27,12 @@ export const OptionChip = ({
     <Text style={cx(styles.chipText, isSelected && styles.chipTextSelected)}>
       {name}
     </Text>
-    <Text style={cx(styles.chipPrice, isSelected && styles.chipPriceSelected)}>
-      +{formatCurrency(price)}
-    </Text>
+    {price > 0 && (
+      <Text
+        style={cx(styles.chipPrice, isSelected && styles.chipPriceSelected)}
+      >
+        +{formatCurrency(price)}
+      </Text>
+    )}
   </PressableOpacity>
 );

@@ -67,4 +67,7 @@ export const styles = StyleSheet.create({
   confirmBtnDisabled: {
     backgroundColor: colors.mutedLight,
   },
+  confirmBtnTextDisabled: {
+    color: colors.textMuted,
+  },
 });

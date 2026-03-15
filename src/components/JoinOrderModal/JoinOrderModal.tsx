@@ -1,11 +1,4 @@
-import {
-  Modal,
-  View,
-  Text,
-  ScrollView,
-  SafeAreaView,
-  Pressable,
-} from "react-native";
+import { Modal, View, Text, ScrollView, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import type { MenuItem, Topping, Extra } from "@src/types";
@@ -134,15 +127,22 @@ export const JoinOrderModal = ({
               <Text style={styles.totalAmount}>{formatCurrency(total)}</Text>
             </View>
           )}
-          <Pressable
+          <PressableOpacity
             style={cx(common.primaryBtn, styles.confirmBtn, {
               [styles.confirmBtnDisabled]: !selectedMenuItemId,
             })}
             onPress={handleConfirm}
             disabled={!selectedMenuItemId}
           >
-            <Text style={typography.primaryBtnText}>Agregar al pedido</Text>
-          </Pressable>
+            <Text
+              style={cx(
+                typography.primaryBtnText,
+                !selectedMenuItemId && styles.confirmBtnTextDisabled,
+              )}
+            >
+              Agregar al pedido
+            </Text>
+          </PressableOpacity>
         </View>
       </SafeAreaView>
     </Modal>
